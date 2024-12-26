@@ -3,6 +3,7 @@
 # It should be run by config/default
 resources:
 - bases/samplecontroller.io_foos.yaml
+- bases/samplecontroller.io.io_foos.yaml
 # +kubebuilder:scaffold:crdkustomizeresource
 
 patches:

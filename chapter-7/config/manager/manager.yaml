@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   labels:
     control-plane: controller-manager
-    app.kubernetes.io/name: chapter-5
+    app.kubernetes.io/name: chapter-7
     app.kubernetes.io/managed-by: kustomize
   name: system
 ---
@@ -14,7 +14,7 @@ metadata:
   namespace: system
   labels:
     control-plane: controller-manager
-    app.kubernetes.io/name: chapter-5
+    app.kubernetes.io/name: chapter-7
     app.kubernetes.io/managed-by: kustomize
 spec:
   selector:

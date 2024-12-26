@@ -3,7 +3,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/name: chapter-5
+    app.kubernetes.io/name: chapter-7
     app.kubernetes.io/managed-by: kustomize
   name: foo-editor-role
 rules:

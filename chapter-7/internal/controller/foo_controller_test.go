@@ -27,7 +27,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	samplecontrollerv1alpha "github.com/naruse666/road-to-custom-controller/chapter-5/api/v1alpha"
+	samplecontrollerv1alpha "github.com/naruse666/road-to-custom-controller/chapter-7/api/v1alpha"
 )
 
 var _ = Describe("Foo Controller", func() {

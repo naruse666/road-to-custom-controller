@@ -33,7 +33,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	samplecontrollerv1alpha "github.com/naruse666/road-to-custom-controller/chapter-5/api/v1alpha"
+	samplecontrollerv1alpha "github.com/naruse666/road-to-custom-controller/chapter-7/api/v1alpha"
 	// +kubebuilder:scaffold:imports
 )
 

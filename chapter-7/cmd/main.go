@@ -35,8 +35,10 @@ import (
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
-	samplecontrollerv1alpha "github.com/naruse666/road-to-custom-controller/chapter-5/api/v1alpha"
-	"github.com/naruse666/road-to-custom-controller/chapter-5/internal/controller"
+	samplecontrollerv1alpha "github.com/naruse666/road-to-custom-controller/chapter-7/api/v1alpha"
+	"github.com/naruse666/road-to-custom-controller/chapter-7/internal/controller"
+
+	webhooksamplecontrolleriov1alpha "github.com/naruse666/road-to-custom-controller/chapter-7/internal/webhook/v1alpha"
 	// +kubebuilder:scaffold:imports
 )
 
@@ -150,6 +152,13 @@ func main() {
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Foo")
 		os.Exit(1)
+	}
+	// nolint:goconst
+	if os.Getenv("ENABLE_WEBHOOKS") != "false" {
+		if err = webhooksamplecontrolleriov1alpha.SetupFooWebhookWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create webhook", "webhook", "Foo")
+			os.Exit(1)
+		}
 	}
 	// +kubebuilder:scaffold:builder
 

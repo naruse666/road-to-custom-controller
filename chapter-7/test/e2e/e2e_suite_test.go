@@ -25,7 +25,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/naruse666/road-to-custom-controller/chapter-5/test/utils"
+	"github.com/naruse666/road-to-custom-controller/chapter-7/test/utils"
 )
 
 var (
@@ -43,7 +43,7 @@ var (
 
 	// projectImage is the name of the image which will be build and loaded
 	// with the code source changes to be tested.
-	projectImage = "example.com/chapter-5:v0.0.1"
+	projectImage = "example.com/chapter-7:v0.0.1"
 )
 
 // TestE2E runs the end-to-end (e2e) test suite for the project. These tests execute in an isolated,
@@ -52,7 +52,7 @@ var (
 // CertManager and Prometheus.
 func TestE2E(t *testing.T) {
 	RegisterFailHandler(Fail)
-	_, _ = fmt.Fprintf(GinkgoWriter, "Starting chapter-5 integration test suite\n")
+	_, _ = fmt.Fprintf(GinkgoWriter, "Starting chapter-7 integration test suite\n")
 	RunSpecs(t, "e2e suite")
 }
 

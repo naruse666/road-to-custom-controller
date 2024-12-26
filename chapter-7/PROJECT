@@ -5,8 +5,8 @@
 domain: io
 layout:
 - go.kubebuilder.io/v4
-projectName: chapter-5
-repo: github.com/naruse666/road-to-custom-controller/chapter-5
+projectName: chapter-7
+repo: github.com/naruse666/road-to-custom-controller/chapter-7
 resources:
 - api:
     crdVersion: v1
@@ -15,6 +15,10 @@ resources:
   domain: io
   group: samplecontroller.io
   kind: Foo
-  path: github.com/naruse666/road-to-custom-controller/chapter-5/api/v1alpha
+  path: github.com/naruse666/road-to-custom-controller/chapter-7/api/v1alpha
   version: v1alpha
+  webhooks:
+    defaulting: true
+    validation: true
+    webhookVersion: v1
 version: "3"

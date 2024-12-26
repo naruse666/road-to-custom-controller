@@ -1,4 +1,4 @@
-module github.com/naruse666/road-to-custom-controller/chapter-5
+module github.com/naruse666/road-to-custom-controller/chapter-7
 
 go 1.22.0
 

@@ -27,20 +27,20 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/naruse666/road-to-custom-controller/chapter-5/test/utils"
+	"github.com/naruse666/road-to-custom-controller/chapter-7/test/utils"
 )
 
 // namespace where the project is deployed in
-const namespace = "chapter-5-system"
+const namespace = "chapter-7-system"
 
 // serviceAccountName created for the project
-const serviceAccountName = "chapter-5-controller-manager"
+const serviceAccountName = "chapter-7-controller-manager"
 
 // metricsServiceName is the name of the metrics service of the project
-const metricsServiceName = "chapter-5-controller-manager-metrics-service"
+const metricsServiceName = "chapter-7-controller-manager-metrics-service"
 
 // metricsRoleBindingName is the name of the RBAC that will be created to allow get the metrics data
-const metricsRoleBindingName = "chapter-5-metrics-binding"
+const metricsRoleBindingName = "chapter-7-metrics-binding"
 
 var _ = Describe("Manager", Ordered, func() {
 	var controllerPodName string
@@ -166,7 +166,7 @@ var _ = Describe("Manager", Ordered, func() {
 		It("should ensure the metrics endpoint is serving metrics", func() {
 			By("creating a ClusterRoleBinding for the service account to allow access to metrics")
 			cmd := exec.Command("kubectl", "create", "clusterrolebinding", metricsRoleBindingName,
-				"--clusterrole=chapter-5-metrics-reader",
+				"--clusterrole=chapter-7-metrics-reader",
 				fmt.Sprintf("--serviceaccount=%s:%s", namespace, serviceAccountName),
 			)
 			_, err := utils.Run(cmd)
@@ -232,6 +232,44 @@ var _ = Describe("Manager", Ordered, func() {
 			Expect(metricsOutput).To(ContainSubstring(
 				"controller_runtime_reconcile_total",
 			))
+		})
+
+		It("should provisioned cert-manager", func() {
+			By("validating that cert-manager has the certificate Secret")
+			verifyCertManager := func(g Gomega) {
+				cmd := exec.Command("kubectl", "get", "secrets", "webhook-server-cert", "-n", namespace)
+				_, err := utils.Run(cmd)
+				g.Expect(err).NotTo(HaveOccurred())
+			}
+			Eventually(verifyCertManager).Should(Succeed())
+		})
+
+		It("should have CA injection for mutating webhooks", func() {
+			By("checking CA injection for mutating webhooks")
+			verifyCAInjection := func(g Gomega) {
+				cmd := exec.Command("kubectl", "get",
+					"mutatingwebhookconfigurations.admissionregistration.k8s.io",
+					"chapter-7-mutating-webhook-configuration",
+					"-o", "go-template={{ range .webhooks }}{{ .clientConfig.caBundle }}{{ end }}")
+				mwhOutput, err := utils.Run(cmd)
+				g.Expect(err).NotTo(HaveOccurred())
+				g.Expect(len(mwhOutput)).To(BeNumerically(">", 10))
+			}
+			Eventually(verifyCAInjection).Should(Succeed())
+		})
+
+		It("should have CA injection for validating webhooks", func() {
+			By("checking CA injection for validating webhooks")
+			verifyCAInjection := func(g Gomega) {
+				cmd := exec.Command("kubectl", "get",
+					"validatingwebhookconfigurations.admissionregistration.k8s.io",
+					"chapter-7-validating-webhook-configuration",
+					"-o", "go-template={{ range .webhooks }}{{ .clientConfig.caBundle }}{{ end }}")
+				vwhOutput, err := utils.Run(cmd)
+				g.Expect(err).NotTo(HaveOccurred())
+				g.Expect(len(vwhOutput)).To(BeNumerically(">", 10))
+			}
+			Eventually(verifyCAInjection).Should(Succeed())
 		})
 
 		// +kubebuilder:scaffold:e2e-webhooks-checks

@@ -28,7 +28,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	samplecontrollerv1alpha "github.com/naruse666/road-to-custom-controller/chapter-5/api/v1alpha"
+	samplecontrollerv1alpha "github.com/naruse666/road-to-custom-controller/chapter-7/api/v1alpha"
 )
 
 var (
