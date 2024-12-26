@@ -20,7 +20,10 @@ import (
 	"context"
 	"fmt"
 
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/util/validation/field"
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
@@ -65,7 +68,10 @@ func (d *FooCustomDefaulter) Default(ctx context.Context, obj runtime.Object) er
 	}
 	foolog.Info("Defaulting for Foo", "name", foo.GetName())
 
-	// TODO(user): fill in your defaulting logic.
+	if foo.Spec.Replicas == nil {
+		foo.Spec.Replicas = new(int32)
+		*foo.Spec.Replicas = 1
+	}
 
 	return nil
 }
@@ -94,9 +100,7 @@ func (v *FooCustomValidator) ValidateCreate(ctx context.Context, obj runtime.Obj
 	}
 	foolog.Info("Validation for Foo upon creation", "name", foo.GetName())
 
-	// TODO(user): fill in your validation logic upon object creation.
-
-	return nil, nil
+	return nil, validateFoo(foo)
 }
 
 // ValidateUpdate implements webhook.CustomValidator so a webhook will be registered for the type Foo.
@@ -107,9 +111,7 @@ func (v *FooCustomValidator) ValidateUpdate(ctx context.Context, oldObj, newObj 
 	}
 	foolog.Info("Validation for Foo upon update", "name", foo.GetName())
 
-	// TODO(user): fill in your validation logic upon object update.
-
-	return nil, nil
+	return nil, validateFoo(foo)
 }
 
 // ValidateDelete implements webhook.CustomValidator so a webhook will be registered for the type Foo.
@@ -123,4 +125,28 @@ func (v *FooCustomValidator) ValidateDelete(ctx context.Context, obj runtime.Obj
 	// TODO(user): fill in your validation logic upon object deletion.
 
 	return nil, nil
+}
+
+func validateDeploymentName(foo *samplecontrolleriov1alpha.Foo) *field.Error {
+	// object name must be no more than 253 characters.
+	if len(foo.Spec.DeploymentName) > 253 {
+		return field.Invalid(field.NewPath("spec").Child("deploymentName"),
+			foo.Spec.DeploymentName, "must be no more than 253 characters")
+	}
+	return nil
+}
+
+func validateFoo(foo *samplecontrolleriov1alpha.Foo) error {
+	var allErrs field.ErrorList
+	if err := validateDeploymentName(foo); err != nil {
+		allErrs = append(allErrs, err)
+	}
+
+	if len(allErrs) == 0 {
+		return nil
+	}
+
+	return apierrors.NewInvalid(
+		schema.GroupKind{Group: "samplecontroller.io", Kind: "Foo"},
+		foo.Name, allErrs)
 }
