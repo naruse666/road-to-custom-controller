@@ -1,0 +1,47 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+  name: foo-controller-operator-sdk.v0.0.0
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - description: Foo is the Schema for the foos API
+      displayName: Foo
+      kind: Foo
+      name: foos.foo.poko.io
+      version: v1alpha
+  description: sample-controller
+  displayName: foo
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - poko
+  links:
+  - name: Foo Controller Operator Sdk
+    url: https://foo-controller-operator-sdk.domain
+  maintainers:
+  - email: example.com
+    name: poko
+  maturity: alpha
+  provider:
+    name: poko
+  version: 0.0.0
