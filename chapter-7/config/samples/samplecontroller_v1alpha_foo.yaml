@@ -1,0 +1,10 @@
+apiVersion: samplecontroller.io/v1alpha
+kind: Foo
+metadata:
+  labels:
+    app.kubernetes.io/name: chapter-5
+    app.kubernetes.io/managed-by: kustomize
+  name: foo-sample
+spec:
+  deploymentName: example-foo
+  replicas: 2
