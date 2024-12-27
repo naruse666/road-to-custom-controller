@@ -28,6 +28,6 @@ resources:
   domain: io
   group: samplecontroller
   kind: Foo
-  path: github.com/naruse666/road-to-custom-controller/chapter-7/api/samplecontroller/v1beta
+  path: github.com/naruse666/road-to-custom-controller/chapter-7/api/v1beta
   version: v1beta
 version: "3"
