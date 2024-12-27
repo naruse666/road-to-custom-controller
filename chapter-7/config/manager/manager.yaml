@@ -63,7 +63,7 @@ spec:
         args:
           - --leader-elect
           - --health-probe-bind-address=:8081
-        image: poko777/road-to-custom-controller:kubebuilder-webhook
+        image: poko777/road-to-custom-controller:kubebuilder-conversion
         name: manager
         securityContext:
           allowPrivilegeEscalation: false

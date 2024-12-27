@@ -30,4 +30,7 @@ resources:
   kind: Foo
   path: github.com/naruse666/road-to-custom-controller/chapter-7/api/v1beta
   version: v1beta
+  webhooks:
+    conversion: true
+    webhookVersion: v1
 version: "3"
