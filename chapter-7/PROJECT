@@ -22,4 +22,12 @@ resources:
     defaulting: true
     validation: true
     webhookVersion: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: io
+  group: samplecontroller
+  kind: Foo
+  path: github.com/naruse666/road-to-custom-controller/chapter-7/api/samplecontroller/v1beta
+  version: v1beta
 version: "3"
