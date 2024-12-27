@@ -7,4 +7,6 @@ metadata:
   name: foo-sample
 spec:
   deploymentName: example-foo
-  replicas: 2
+  # deploymentName: iOqXwAaB2awsSQMSuAPc7VtmGYhc0JQYk2tjcrVu7a6OnRjzSfXFgi76zBMapXUwwRfeOPLqA891IPeHH6IVLDS6SSD7kX2GMiQg0Hbckggo9HezXcfEUT5wIsTF7P89GDwxNnaK29pO4u0FmfCLVfIIWQj49y1peiXNx1wwlTU2mZnTn0CwMcX512slGXjB8rXuMxqNVkBnwlp5f1Yza0nzyk1cldCSFlav1wcvVv477dlBpO4fqnK02UWPQt
+
+  # replicas: 2
