@@ -38,7 +38,7 @@ import (
 	samplecontrollerv1alpha "github.com/naruse666/road-to-custom-controller/chapter-7/api/v1alpha"
 	"github.com/naruse666/road-to-custom-controller/chapter-7/internal/controller"
 
-	samplecontrollerv1beta "github.com/naruse666/road-to-custom-controller/chapter-7/api/samplecontroller/v1beta"
+	samplecontrollerv1beta "github.com/naruse666/road-to-custom-controller/chapter-7/api/v1beta"
 	webhooksamplecontrolleriov1alpha "github.com/naruse666/road-to-custom-controller/chapter-7/internal/webhook/v1alpha"
 	// +kubebuilder:scaffold:imports
 )
