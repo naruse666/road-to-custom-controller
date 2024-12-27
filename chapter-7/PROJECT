@@ -5,6 +5,7 @@
 domain: io
 layout:
 - go.kubebuilder.io/v4
+multigroup: true
 projectName: chapter-7
 repo: github.com/naruse666/road-to-custom-controller/chapter-7
 resources:
